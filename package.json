@@ -1,0 +1,20 @@
+{
+	"name": "@skypress/wp-client",
+	"version": "0.4.0",
+	"keywords": [
+		"Angular",
+  	  	"WordPress",
+  	  	"Clarity",
+  	  	"WAR Framework",
+  	  	"SkyPress"
+	],
+	"author": "BMO",
+	"license": "MIT",
+	"$schema": "../../../node_modules/ng-packagr/ng-package.schema.json",
+	"ngPackage": {
+		"lib": {
+			"entryFile": "index.ts"
+		},
+		"dest": "skypress/wp-client"
+	}
+}
