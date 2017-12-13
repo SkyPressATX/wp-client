@@ -1,13 +1,16 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiCalls } from './api-calls';
+import { WindowRef } from './window-ref.service';
 
 @Injectable()
 export class WpClientService {
 
   public namespaces: any = {};
+  public window: any;
 
-  constructor( @Inject('wpConfig') private wpConfig: any, private http: HttpClient ) {
+  constructor( @Inject('wpConfig') private wpConfig: any, private winRef: WindowRef, private http: HttpClient ) {
+      this.window = this.winRef.nativeWindow;
       this.wpConfig = this.ensureConfig();
   }
 
@@ -28,6 +31,8 @@ export class WpClientService {
       		auth_key: '',
       		auth_header: ''
       	};
+
+        if( typeof this.wpConfig === 'string' ) this.wpConfig = this.window[ this.wpConfig ] || {};
       	const customConfig: any = this.wpConfig || {};
       	return Object.assign( defaultConfig, customConfig );
   }

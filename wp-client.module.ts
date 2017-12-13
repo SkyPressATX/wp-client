@@ -3,6 +3,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 /** Services **/
 import { WpClientService } from './wp-client.service';
 import { WpAuthService } from './wp-auth.service';
+import { WindowRef } from './window-ref.service';
+
 
 @NgModule({
   imports: [
@@ -14,9 +16,10 @@ export class WpClientModule {
         return {
             ngModule: WpClientModule,
             providers: [
-                {provide: 'wpClient', useClass: WpClientService },
-                {provide: 'wpConfig', useValue: config },
-                {provide: HTTP_INTERCEPTORS, useClass: WpAuthService, multi: true }
+              WindowRef,
+              {provide: 'wpClient', useClass: WpClientService },
+              {provide: 'wpConfig', useValue: config },
+              {provide: HTTP_INTERCEPTORS, useClass: WpAuthService, multi: true }
             ]
         };
     }
