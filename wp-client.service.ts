@@ -6,12 +6,11 @@ import { WindowRef } from './window-ref.service';
 @Injectable()
 export class WpClientService {
 
-  public namespaces: any = {};
-  public window: any;
+    public window: any;
+    public namespaces: any = {};
 
   constructor( @Inject('wpConfig') private wpConfig: any, private winRef: WindowRef, private http: HttpClient ) {
       this.window = this.winRef.nativeWindow;
-      this.wpConfig = this.ensureConfig();
   }
 
   public namespace( name: string ): any {
@@ -24,16 +23,4 @@ export class WpClientService {
     return this.namespaces[ name ];
   }
 
-  private ensureConfig(){
-      	const defaultConfig: any = {
-      		api_root: '/',
-      		api_namespace: 'wp/v2',
-      		auth_key: '',
-      		auth_header: ''
-      	};
-
-        if( typeof this.wpConfig === 'string' ) this.wpConfig = this.window[ this.wpConfig ] || {};
-      	const customConfig: any = this.wpConfig || {};
-      	return Object.assign( defaultConfig, customConfig );
-  }
 }

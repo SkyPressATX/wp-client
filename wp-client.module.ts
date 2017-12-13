@@ -5,6 +5,11 @@ import { WpClientService } from './wp-client.service';
 import { WpAuthService } from './wp-auth.service';
 import { WindowRef } from './window-ref.service';
 
+let wpConfigFactory = ( winRef: WindowRef, wpConfig?: any ) => {
+    if( ! wpConfig ) return { api_root: '/', api_namespace: 'wp/v2', auth_key: '', auth_header: '' };
+    if( typeof wpConfig === 'string' ) return winRef.nativeWindow[ wpConfig ];
+    return wpConfig;
+}
 
 @NgModule({
   imports: [
@@ -16,10 +21,11 @@ export class WpClientModule {
         return {
             ngModule: WpClientModule,
             providers: [
-              WindowRef,
-              {provide: 'wpClient', useClass: WpClientService },
-              {provide: 'wpConfig', useValue: config },
-              {provide: HTTP_INTERCEPTORS, useClass: WpAuthService, multi: true }
+                WindowRef,
+                {provide: 'config', useValue: config },
+                {provide: 'wpClient', useClass: WpClientService },
+                {provide: 'wpConfig', useFactory: wpConfigFactory, deps:[ WindowRef, 'config'] },
+                {provide: HTTP_INTERCEPTORS, useClass: WpAuthService, multi: true }
             ]
         };
     }

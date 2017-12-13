@@ -1,11 +1,12 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { WindowRef } from './window-ref.service';
 
 @Injectable()
 export class WpAuthService implements HttpInterceptor {
 
-  constructor( @Inject('wpConfig') private wpConfig: any ) { }
+  constructor( @Inject('wpConfig') private wpConfig: any ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler ):Observable<HttpEvent<any>> {
       /** If we don't have any headers to set, move along **/
