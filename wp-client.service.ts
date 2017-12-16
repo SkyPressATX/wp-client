@@ -6,11 +6,12 @@ import { WindowRef } from './window-ref.service';
 @Injectable()
 export class WpClientService {
 
-    public window: any;
     public namespaces: any = {};
 
-  constructor( @Inject('wpConfig') private wpConfig: any, private winRef: WindowRef, private http: HttpClient ) {
-      this.window = this.winRef.nativeWindow;
+  constructor(
+      @Inject( 'wpConfig') private wpConfig,
+      @Inject( 'window' ) private window,
+      private http: HttpClient ) {
   }
 
   public namespace( name: string ): any {
