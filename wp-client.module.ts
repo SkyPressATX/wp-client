@@ -6,10 +6,6 @@ import { WpAuthService } from './wp-auth.service';
 import { WindowRefService } from './window-ref.service';
 import { WpConfigService } from './wp-config.service';
 
-export function wpConfigFactory( configService: WpConfigService, config?: any ){
-    return configService.getConfig( config );
-}
-
 @NgModule({
   imports: [
     HttpClientModule

@@ -9,7 +9,7 @@ export class WpConfigService {
 
 	constructor( private winRef: WindowRefService, @Inject( 'localObj' ) private localObj?: any ){ }
 
-	public getConfig( config?: any ) {
+	public getConfig( config?: any ): WpConfig {
 		const _wpConfig = new WpConfig;
 
 		if( 'undefined' === typeof config && 'undefined' !== typeof this.localObj ) config = this.localObj;

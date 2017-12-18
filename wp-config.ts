@@ -20,17 +20,11 @@ export class WpConfig {
   set authHeader( header: string ) {
     this._authHeader = header;
   }
-  set auth_header( header: string ) {
-    this._authHeader = header;
-  }
 
   get authKey() {
     return this._authKey;
   }
   set authKey( key: string ) {
-    this._authKey = key;
-  }
-  set auth_key( key: string ) {
     this._authKey = key;
   }
 
@@ -40,9 +34,6 @@ export class WpConfig {
   set apiHost( host: string ) {
     this._apiHost = host;
   }
-  set api_host( host: string ) {
-    this._apiHost = host;
-  }
 
   get apiRoot() {
     return this._apiRoot;
@@ -50,17 +41,11 @@ export class WpConfig {
   set apiRoot( root: string ) {
     this._apiRoot = root;
   }
-  set api_root( root: string ) {
-    this._apiRoot = root;
-  }
 
   get apiNamespace() {
     return this._apiNamespace;
   }
   set apiNamespace( name: string ) {
-    this._apiNamespace = name;
-  }
-  set api_namepace( name: string ) {
     this._apiNamespace = name;
   }
 

@@ -9,9 +9,9 @@ export class WpClientService {
 
   constructor( private http: HttpClient, private wpConfig: WpConfigService ) { }
 
-  public namespace( name?: string ): any {
+  public namespace( name?: string ): ApiCalls {
       const config = this.wpConfig.getConfig();
-      if( name ) config.apiNamespace = name;
+      if( 'undefined' !== typeof name ) config.apiNamespace = name;
       return new ApiCalls( config, this.http );
   }
 
