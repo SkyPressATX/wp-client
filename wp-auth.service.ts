@@ -14,7 +14,6 @@ export class WpAuthService implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler ):Observable<HttpEvent<any>> {
-      console.log( this.config );
       /** If we don't have any headers to set, move along **/
       if( 'undefined' === typeof this.config.authHeader || 'undefined' === typeof this.config.authKey ) return next.handle( req );
       /** Clone current `req` and set our headers **/
