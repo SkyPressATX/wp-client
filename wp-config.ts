@@ -1,22 +1,18 @@
-import { WindowRef } from './window-ref.service';
-
 export class WpConfig {
 
-  private _domain: string;
+  private _apiHost: string;
   private _apiRoot: string = 'wp-json';
   private _apiNamespace: string = 'wp';
   private _apiVersion: number = 2;
-  private _path: string;
+  private _uri: string;
   private _fullPath: string;
   private _authHeader: string;
   private _authKey: string;
 
-  private _window: any;
-
-  constructor( private winRef: WindowRef ) { }
-
   get fullPath() {
-    return this._domain + '/' + this._apiRoot + '/' + this._apiNamespace + '/v' + this._apiVersion + '/' + this._path;
+    this._fullPath = '/' + this._apiRoot + '/' + this._apiNamespace + '/v' + this._apiVersion + '/' + this._uri;
+    if( 'undefined' !== typeof this._apiHost ) this._fullPath = this._apiHost + this._fullPath;
+    return this._fullPath;
   }
 
   get authHeader() {
@@ -39,11 +35,14 @@ export class WpConfig {
     this._authKey = key;
   }
 
-  get domain() {
-    return this._domain;
+  get apiHost() {
+    return this._apiHost;
   }
-  set domain( domain: string ) {
-    this._domain = '//' + domain;
+  set apiHost( host: string ) {
+    this._apiHost = host;
+  }
+  set api_host( host: string ) {
+    this._apiHost = host;
   }
 
   get apiRoot() {
@@ -76,18 +75,11 @@ export class WpConfig {
     this._apiVersion = version;
   }
 
-  get path() {
-    return this._path;
+  get uri() {
+    return this._uri;
   }
-  set path( path: string ) {
-    this._path = path;
-  }
-
-  setConfigFromWindow( config: string ) {
-    const windowConfig = this.winRef.nativeWindow[ config ];
-    windowConfig.forEach(function(v,i){
-      this[i] = v;
-    });
+  set uri( uri: string ) {
+    this._uri = uri;
   }
 
 }
