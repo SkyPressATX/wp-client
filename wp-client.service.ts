@@ -1,26 +1,18 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { WpConfig } from './wp-config';
+import { WpConfigService } from './wp-config.service';
 import { ApiCalls } from './api-calls';
-import { WindowRef } from './window-ref.service';
 
 @Injectable()
 export class WpClientService {
 
-    public window: any;
-    public namespaces: any = {};
+  constructor( private http: HttpClient, private wpConfig: WpConfigService ) { }
 
-  constructor( @Inject('wpConfig') private wpConfig: any, private winRef: WindowRef, private http: HttpClient ) {
-      this.window = this.winRef.nativeWindow;
-  }
-
-  public namespace( name: string ): any {
-    if( ! name ){
-        name = this.wpConfig.api_namespace;
-    }
-    if( ! this.namespaces[ name ] ){
-        this.namespaces[ name ] = new ApiCalls( this.wpConfig, name, this.http );
-    }
-    return this.namespaces[ name ];
+  public namespace( name?: string ): ApiCalls {
+      const config = this.wpConfig.getConfig();
+      if( 'undefined' !== typeof name ) config.apiNamespace = name;
+      return new ApiCalls( config, this.http );
   }
 
 }
